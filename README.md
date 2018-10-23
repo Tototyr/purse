@@ -1,6 +1,12 @@
 # purse
 
-> Purse project
+Проект реализован на Vue.js. Для работы со стилями установлен scss.
+Компонент с таблицей лежит в  `./src/components/market-table`.
+Компонент разбит на три файла: `market-table.html`, `market-table.scss`, `market-table.vue`. Общие методы вынесены в `./utils/`. Для работы с http подключен axios.
+Реализованы фильры. Путь до фильтров `./utils/filters/`.
+В компоненте подключены вебсокеты.
+
+Общие стили вынесены в `./styles/`. В `./styles/theme/color.scss` – цветовая палитра для проекта. 
 
 ## Build Setup
 

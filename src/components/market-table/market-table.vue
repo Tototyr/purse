@@ -29,12 +29,21 @@ export default {
     },
     methods: {
         followTrades() {
-            console.log(this.sortedMarketItems)
-            // const tradeWs = new WebSocket('wss://ws.coincap.io/trades/binance')
+            const req = `${this.sortedMarketItems.map((item) => item.name.toLowerCase())}`;
+            const pricesWs = new WebSocket(`wss://ws.coincap.io/prices?assets=${req}`);
+            let self = this;
 
-            // tradeWs.onmessage = function (msg) {
-            //     console.log(msg.data)
-            // }
+            pricesWs.onmessage = (msg) => {
+                const response = JSON.parse(msg.data);       
+                self.updateMarketItems(response);
+            }
+        },
+        updateMarketItems(data) {
+            for (var key in data) {
+                if (data.hasOwnProperty(key)) {
+                    this.sortedMarketItems.find((item) => item.name.toLowerCase() === key).priceUsd = data[key];
+                }
+            }
         }
     },
     computed: {
