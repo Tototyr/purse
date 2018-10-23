@@ -1,0 +1,7 @@
+@import "./reset.scss";
+
+@media (max-width: 460px) {
+    .mobile-hidden {
+        display: none;
+    }
+}

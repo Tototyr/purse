@@ -1,5 +1,114 @@
-@import "../../theme/colors";
+@import "../../styles/theme/colors";
 
-table {
-  
+.market-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+
+  background: linear-gradient(to right, rgb(63, 81, 181), rgb(100, 181, 246)) rgb(255, 255, 255);
+}
+
+.market-table {
+  width: calc(100% - 100px);
+  border-radius: 3px;
+  background: #FFF;
+
+  border-spacing: 0;
+  border-collapse: collapse;
+  overflow: auto;
+
+  &__head {
+    border-bottom: 1px solid map_get($colors, gray);
+  }
+
+  &__body {
+    display: block;
+    height: 600px;
+    overflow: auto;
+  }
+
+  &__row {
+    display: flex;
+    flex-flow: row nowrap;
+
+    &:nth-child(even) {
+      background: map_get($colors, gray);
+    }
+  }
+
+  &__link {
+    font-size: 1rem;
+
+    color: map-get($colors, text-color);
+    text-decoration: none;
+    transition: color .5s;
+
+    &:hover, &:focus {
+      text-decoration: none;
+      color: map_get($colors, company);
+    }
+  }
+
+  &__symbol {
+    font-size: 0.5rem;
+    margin: 0;
+  }
+
+  &__cell {
+    padding: 10px;
+    flex: 1 1 20%;
+    max-width: 20%;
+
+    &--title {
+      font-size: 0.75rem;
+    }
+
+    &--right {
+      text-align: right;
+    }
+
+    &--left {
+      text-align: left;
+    }
+
+    &--xs {
+      flex: 1 1 5%;
+      max-width: 5%;
+    }
+
+    &--sm {
+      flex: 1 1 20%;
+      max-width: 20%;
+    }
+
+    &--md {
+      flex: 1 1 25%;
+      max-width: 25%;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .market-table {
+
+    &__body {
+      height: 400px;
+    }
+  }
+}
+
+@media (max-width: 460px) {
+  .market-table {
+    width: calc(100% - 40px);
+
+    &__cell {
+      flex: 1 1 50%;
+      max-width: 50%;
+    }
+    
+    &__body {
+      height: 300px;
+    }
+  }
 }

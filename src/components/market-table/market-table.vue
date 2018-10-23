@@ -20,6 +20,7 @@ export default {
             })
             .then((items) => {
                 this.markets = items.data;
+                this.followTrades();
             })
             .catch((err) => {
                 throw err;
@@ -27,7 +28,14 @@ export default {
         
     },
     methods: {
+        followTrades() {
+            console.log(this.sortedMarketItems)
+            // const tradeWs = new WebSocket('wss://ws.coincap.io/trades/binance')
 
+            // tradeWs.onmessage = function (msg) {
+            //     console.log(msg.data)
+            // }
+        }
     },
     computed: {
         sortedMarketItems(items) {

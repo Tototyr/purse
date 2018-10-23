@@ -1,27 +1,32 @@
 <div class="market-container">
-  <!-- <pre>{{sortedMarketItems}}</pre> -->
   <table class="market-table">
-    <thead>
+    <thead class="market-table__head">
       <tr class="market-table__row">
-        <th class="market-table__cell market-table__cell--title">Название</th>
-        <th class="market-table__cell market-table__cell--title">Стоимость</th>
-        <th class="market-table__cell market-table__cell--title">Рыночная капитализация</th>
-        <th class="market-table__cell market-table__cell--title">Суточный объем</th>
+        <th class="market-table__cell market-table__cell--xs market-table__cell--title market-table__cell--left mobile-hidden">Рейтиг</th>
+        <th class="market-table__cell market-table__cell--sm market-table__cell--title market-table__cell--left">Название</th>
+        <th class="market-table__cell market-table__cell--sm market-table__cell--title market-table__cell--right">Стоимость</th>
+        <th class="market-table__cell market-table__cell--md market-table__cell--title market-table__cell--right mobile-hidden">Рыночная
+          капитализация</th>
+        <th class="market-table__cell market-table__cell--sm market-table__cell--title market-table__cell--right mobile-hidden">Суточный
+          объем</th>
       </tr>
     </thead>
-    <tbody>
-      <tr v-for="unit in sortedMarketItems" class="market-table__row">
-        <td class="market-table__cell market-table__cell--content">
-          <span class="coin__name">{{ unit.name }}</span>
-          <span class="coin__symbol">{{ unit.symbol }}</span>
+    <tbody class="market-table__body">
+      <tr v-for="unit, index in sortedMarketItems" class="market-table__row">
+        <td class="market-table__cell mobile-hidden market-table__cell--xs">{{ index + 1 }}</td>
+        <td class="market-table__cell market-table__about market-table__cell--sm market-table__cell--left">
+          <a href="#" class="market-table__link">
+            <span class="market-table__name">{{ unit.name }}</span>
+            <p class="market-table__symbol">{{ unit.symbol }}</p>
+          </a>
         </td>
-        <td class="market-table__cell market-table__cell--content">
+        <td class="market-table__cell market-table__cell--sm market-table__cell--right">
           {{ unit.priceUsd | currency('$') }}
         </td>
-        <td class="market-table__cell market-table__cell--content">
+        <td class="market-table__cell market-table__cell--md market-table__cell--right mobile-hidden">
           {{ unit.marketCapUsd | rounding }}
         </td>
-        <td class="market-table__cell market-table__cell--content">
+        <td class="market-table__cell market-table__cell--sm market-table__cell--right mobile-hidden">
           {{ unit.changePercent24Hr | percent }}
         </td>
       </tr>
