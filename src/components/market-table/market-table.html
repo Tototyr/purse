@@ -1,0 +1,30 @@
+<div class="market-container">
+  <!-- <pre>{{sortedMarketItems}}</pre> -->
+  <table class="market-table">
+    <thead>
+      <tr class="market-table__row">
+        <th class="market-table__cell market-table__cell--title">Название</th>
+        <th class="market-table__cell market-table__cell--title">Стоимость</th>
+        <th class="market-table__cell market-table__cell--title">Рыночная капитализация</th>
+        <th class="market-table__cell market-table__cell--title">Суточный объем</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="unit in sortedMarketItems" class="market-table__row">
+        <td class="market-table__cell market-table__cell--content">
+          <span class="coin__name">{{ unit.name }}</span>
+          <span class="coin__symbol">{{ unit.symbol }}</span>
+        </td>
+        <td class="market-table__cell market-table__cell--content">
+          {{ unit.priceUsd | currency('$') }}
+        </td>
+        <td class="market-table__cell market-table__cell--content">
+          {{ unit.marketCapUsd | rounding }}
+        </td>
+        <td class="market-table__cell market-table__cell--content">
+          {{ unit.changePercent24Hr | percent }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
