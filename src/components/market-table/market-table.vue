@@ -30,6 +30,9 @@ export default {
         
     },
     methods: {
+        /**
+         * Подписывается на вебсокет.
+         */
         followTrades() {
             const req = `${this.sortedMarketItems.map((item) => item.name.toLowerCase())}`;
             const pricesWs = socketInstance(req);
@@ -39,6 +42,9 @@ export default {
                 this.updateMarketItems(response);
             };
         },
+        /**
+         * Обновляет данные.
+         */
         updateMarketItems(data) {
             for (var key in data) {
                 if (data.hasOwnProperty(key)) {
@@ -47,15 +53,21 @@ export default {
                 }
             }
         },
+        /**
+         * Получает процент разности и вызывает подсвечивание.
+         */
         getDifference(coin, newValue) {
             const diff = getPercentageChange(coin.priceUsd, newValue).toFixed(2);
-            const verge = 0.03;
+            const verge = 0.05;
 
             if (Math.abs(parseFloat(diff)) >= verge) {
                 const isLess = parseFloat(diff) < 0;
                 return this.fillUnitLine(coin.id, isLess);
             }
         },
+        /**
+         * Подсвечивает ряд с обновленным значением.
+         */
         fillUnitLine(elementId, isLess) {
             const elNode = document.getElementById(elementId);
             const colors = {
