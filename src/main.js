@@ -1,12 +1,9 @@
-//Core
 import Vue from 'vue';
 
-// Components
 import App from './App';
 import router from './router';
 
-// Filters
-import Filters from './utils/filters';
+import './utils/filters';
 
 Vue.config.productionTip = false;
 

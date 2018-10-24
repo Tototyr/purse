@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody class="market-table__body">
-      <tr v-for="unit, index in sortedMarketItems" class="market-table__row">
+      <tr v-for="unit, index in sortedMarketItems" class="market-table__row" :id="unit.id">
         <td class="market-table__cell mobile-hidden market-table__cell--xs">{{ index + 1 }}</td>
         <td class="market-table__cell market-table__about market-table__cell--sm market-table__cell--left">
           <a href="#" class="market-table__link">

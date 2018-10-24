@@ -21,6 +21,9 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
+    "eqeqeq": "off",
+    "curly": "error",
+    "quotes": ["error", "double"],
     "semi": [2, "always"],
     // allow async-await
     'generator-star-spacing': 'off',

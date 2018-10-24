@@ -14,3 +14,9 @@ export const roundingNumber = (num) => {
   }
   return num;
 };
+
+export const getPercentageChange = (oldNumber, newNumber) => {
+  const decreaseValue = oldNumber - newNumber;
+
+  return (decreaseValue / oldNumber) * 100;
+}

@@ -1,17 +1,19 @@
-<template src="./market-table.html"></template>
-<style lang="scss">
-  @import "./market-table.scss";
+<template src='./market-table.html'></template>
+<style lang='scss'>
+  @import './market-table.scss';
 </style>
 
 <script>
 import {HTTP} from '../../utils/services/http-service';
+import {socketInstance} from '../../utils/services/socket-service';
+import {getPercentageChange} from '../../utils/helpers';
 
 export default {
-    name: "MarketTable",
+    name: 'MarketTable',
     data() {
         return {
             markets: []
-        }
+        };
     },
     mounted() {
         HTTP.get('/assets')
@@ -30,20 +32,47 @@ export default {
     methods: {
         followTrades() {
             const req = `${this.sortedMarketItems.map((item) => item.name.toLowerCase())}`;
-            const pricesWs = new WebSocket(`wss://ws.coincap.io/prices?assets=${req}`);
-            let self = this;
+            const pricesWs = socketInstance(req);
 
             pricesWs.onmessage = (msg) => {
-                const response = JSON.parse(msg.data);       
-                self.updateMarketItems(response);
-            }
+                const response = JSON.parse(msg.data);
+                this.updateMarketItems(response);
+            };
         },
         updateMarketItems(data) {
             for (var key in data) {
                 if (data.hasOwnProperty(key)) {
-                    this.sortedMarketItems.find((item) => item.name.toLowerCase() === key).priceUsd = data[key];
+                    const unit = this.sortedMarketItems.find((item) => item.name.toLowerCase() === key);
+                    this.getDifference(unit, data[key]);
                 }
             }
+        },
+        getDifference(coin, newValue) {
+            const diff = getPercentageChange(coin.priceUsd, newValue).toFixed(2);
+            const verge = 0.03;
+
+            if (Math.abs(parseFloat(diff)) >= verge) {
+                const isLess = parseFloat(diff) < 0;
+                return this.fillUnitLine(coin.id, isLess);
+            }
+        },
+        fillUnitLine(elementId, isLess) {
+            const elNode = document.getElementById(elementId);
+            const colors = {
+                less: '#ff8080',
+                better: '#99e699'
+            }
+            
+            elNode.animate(
+                [
+                    { background: 'transparent' },
+                    { background: (isLess) ? colors.less : colors.better },
+                ],
+                {
+                    duration: 1000
+                }
+            );
+            
         }
     },
     computed: {
